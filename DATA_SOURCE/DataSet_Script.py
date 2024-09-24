@@ -2,6 +2,7 @@ import json
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
+from sklearn.preprocessing import MinMaxScaler
 
 # Define parameters
 df_roads = pd.read_csv('Road_List.csv')
@@ -14,8 +15,6 @@ holidays = [
 ]
 
 # Festival data
-
-# Load festival_data from JSON file
 with open('festival_data.json', 'r') as f:
     festival_data = json.load(f)
 
@@ -49,6 +48,12 @@ start_date = datetime(2022, 1, 1)
 end_date = datetime(2022, 12, 31)
 date_range = [start_date + timedelta(days=x) for x in range((end_date - start_date).days + 1)]
 
+# Function to handle missing or erroneous data
+def handle_missing_data(value, lower_bound, upper_bound):
+    if pd.isna(value) or value < lower_bound or value > upper_bound:
+        return np.random.uniform(lower_bound, upper_bound)  # Fill with a random value in the valid range
+    return value
+
 # Function to generate random traffic data for each road on each date
 def generate_traffic_data(date, road, weather, traffic_multiplier, pedestrian_multiplier):
     is_weekend = date.weekday() >= 5  # Check if it's a weekend
@@ -71,37 +76,33 @@ def generate_traffic_data(date, road, weather, traffic_multiplier, pedestrian_mu
     parking_usage = np.random.uniform(0, 100)
     
     # Apply dependency adjustments
-    # Adjust congestion, speed, and travel time index based on dependencies
     congestion_level += incident_reports * 5
     congestion_level += (road_capacity_utilization - 80) / 2 if road_capacity_utilization > 80 else 0
 
     travel_time_index = 1 + (congestion_level / 100) + (incident_reports * 0.1)
     avg_speed = max(10, avg_speed - (congestion_level / 2) - (incident_reports * 2))
 
-    # Adjust traffic volume and environmental impact
     traffic_volume -= public_transport_usage * 100
     environmental_impact += (traffic_volume - 30000) / 3000
 
-    # Adjust pedestrian count
     pedestrian_and_cyclist_count = int(np.random.randint(0, 100) * pedestrian_multiplier) + int(public_transport_usage * 1.5)
 
-    # Adjust incident reports based on traffic signal compliance
     if traffic_signal_compliance < 85 and np.random.rand() > 0.5:
         incident_reports += 1
     
-    # Ensure values are within expected ranges
-    avg_speed = max(0, avg_speed)  # Ensure speed doesn't go below 0
-    congestion_level = min(100, congestion_level)  # Cap congestion level at 100
-    traffic_volume = max(0, traffic_volume)  # Ensure traffic volume is non-negative
+    # Ensure values are within expected ranges using missing data handling function
+    avg_speed = handle_missing_data(avg_speed, 10, 60)
+    congestion_level = handle_missing_data(congestion_level, 0, 100)
+    traffic_volume = handle_missing_data(traffic_volume, 0, 100000)
+    environmental_impact = handle_missing_data(environmental_impact, 50, 150)
 
     # Return traffic data for the specific road and date
     return [
         date.strftime('%d-%m-%Y'), road, traffic_volume, avg_speed, travel_time_index,
         congestion_level, road_capacity_utilization, incident_reports, environmental_impact,
         public_transport_usage, traffic_signal_compliance, parking_usage,
-        pedestrian_and_cyclist_count, weather, np.random.randint(0, 2)  # Random roadwork/construction activity
+        pedestrian_and_cyclist_count, weather, np.random.randint(0, 2)
     ]
-
 
 # Now, generate data for every road for each date (optimize by moving weather and festival multiplier calculation outside inner loop)
 data = []
@@ -112,13 +113,23 @@ for date in date_range:
         traffic_multiplier, pedestrian_multiplier = festival_multipliers.get(road, (1, 1))  # Lookup in dictionary
         data.append(generate_traffic_data(date, road, weather, traffic_multiplier, pedestrian_multiplier))
 
-# Create the DataFrame and save it to CSV
+# Create the DataFrame
 columns = ["Date", "Road/Intersection Name", "Traffic Volume", "Average Speed", "Travel Time Index", 
            "Congestion Level", "Road Capacity Utilization", "Incident Reports", "Environmental Impact", 
            "Public Transport Usage", "Traffic Signal Compliance", "Parking Usage", 
            "Pedestrian and Cyclist Count", "Weather Conditions", "Roadwork and Construction Activity"]
-
 df = pd.DataFrame(data, columns=columns)
-df.to_csv('Traffic_Data.csv', index=False)
 
-print("Traffic data generation complete!")
+# Feature normalization using MinMaxScaler
+scaler = MinMaxScaler()
+numerical_columns = ["Traffic Volume", "Average Speed", "Travel Time Index", "Congestion Level",
+                     "Road Capacity Utilization", "Incident Reports", "Environmental Impact", 
+                     "Public Transport Usage", "Traffic Signal Compliance", "Parking Usage", 
+                     "Pedestrian and Cyclist Count"]
+
+df[numerical_columns] = scaler.fit_transform(df[numerical_columns])
+
+# Save the DataFrame to CSV
+df.to_csv('Traffic_Data_Normalized.csv', index=False)
+
+print("Traffic data generation and normalization complete!")
