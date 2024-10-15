@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { IoIosArrowDropdown } from "react-icons/io";
 
-export function DropdownMenuLoc() {
+export function DropdownMenuLoc(props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -22,21 +22,11 @@ export function DropdownMenuLoc() {
         <DropdownMenuLabel>Menu</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <span>Andheri</span>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem>
-            <span>Virar</span>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem>
-            <span>Mumbai</span>
-          </DropdownMenuItem>
-
-          <DropdownMenuItem>
-            <span>Kanjurmarg </span>
-          </DropdownMenuItem>
+          {props.roadNames.map((roadName) => (
+            <DropdownMenuItem key={roadName}>
+              <span>{roadName}</span>
+            </DropdownMenuItem>
+          ))}
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
