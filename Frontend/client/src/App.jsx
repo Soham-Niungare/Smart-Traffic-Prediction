@@ -17,7 +17,7 @@ function App() {
   }, []);
 
   return (
-    <div className="w-full  flex flex-col gap-4 bg-gray-200">
+    <div className="w-full  flex flex-col gap-4 bg-[#ECA427]">
       <Navbar />
       <InputDemo roadNames={roadNames} />
       <section>

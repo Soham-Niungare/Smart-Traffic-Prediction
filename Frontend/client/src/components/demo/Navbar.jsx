@@ -3,13 +3,18 @@ import { DropdownMenuNav } from "./DropdownMenuNav";
 export function Navbar() {
   return (
     <>
-      <header className="bg-white">
+      <header className="bg-[#FF921C] border-b-4 border-black">
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="md:flex md:items-center md:gap-12">
-              <a className="block text-teal-600" href="#">
+              <a className="block text-gray-400" href="#">
                 <span className="sr-only">Home</span>
-                <h1 className="font-semibold text-xl">Traffic Analysis</h1>
+                <h1 className="flex flex-col font-bold ">
+                  <span className="text-xl text-white text-center -mb-1">
+                    Traffic
+                  </span>
+                  <span className="text-3xl text-teal-800 -mt-1">Analysis</span>
+                </h1>
               </a>
             </div>
 
@@ -18,7 +23,7 @@ export function Navbar() {
                 <ul className="flex items-center gap-6 text-md">
                   <li>
                     <a
-                      className="text-gray-800 transition hover:text-gray-500/75"
+                      className="text-white font-bold text-xl transition hover:text-gray-500/75"
                       href="#"
                     >
                       {" "}
@@ -28,7 +33,7 @@ export function Navbar() {
 
                   <li>
                     <a
-                      className="text-gray-800 transition hover:text-gray-500/75"
+                      className="text-white font-bold text-xl transition hover:text-gray-500/75"
                       href="#"
                     >
                       {" "}
@@ -38,7 +43,7 @@ export function Navbar() {
 
                   <li>
                     <a
-                      className="text-gray-800 transition hover:text-gray-500/75"
+                      className="text-white font-bold text-xl transition hover:text-gray-500/75"
                       href="#"
                     >
                       {" "}
@@ -48,7 +53,7 @@ export function Navbar() {
 
                   <li>
                     <a
-                      className="text-gray-800 transition hover:text-gray-500/75"
+                      className="text-white font-bold text-xl transition hover:text-gray-500/75"
                       href="#"
                     >
                       {" "}

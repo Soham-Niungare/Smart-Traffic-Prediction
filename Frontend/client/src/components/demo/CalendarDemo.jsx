@@ -7,14 +7,14 @@ export function CalendarDemo({ onDateChange }) {
 
   const handleChange = (date) => {
     const dateValue = date;
-    const day = dateValue.getDate(); // Day of the month (1-31)
-    const month = dateValue.getMonth() + 1; // Months are zero-indexed (0-11), so add 1 to get 1-12
-    const year = dateValue.getFullYear(); // Full year (e.g., 2024)
+    const day = dateValue.getDate();
+    const month = dateValue.getMonth() + 1;
+    const year = dateValue.getFullYear();
     const formattedDate = `${day.toString().padStart(2, "0")}-${month
       .toString()
       .padStart(2, "0")}-${year}`;
     setSelectedDate(date);
-    onDateChange(formattedDate); // Pass the selected date to the parent component
+    onDateChange(formattedDate);
   };
 
   return (

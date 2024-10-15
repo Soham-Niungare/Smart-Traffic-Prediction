@@ -28,7 +28,7 @@ const chartConfig = {
 
 export function Chart4(props) {
   return (
-    <Card>
+    <Card className="bg-yellow-200">
       <CardHeader>
         <CardTitle>Bar Chart - Horizontal</CardTitle>
         <CardDescription>January - June 2024</CardDescription>

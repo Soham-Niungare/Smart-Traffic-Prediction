@@ -12,7 +12,7 @@ import { IoIosArrowDropdown } from "react-icons/io";
 
 export function DropdownMenuLoc({ roadNames, onLocationChange }) {
   const handleSelect = (roadName) => {
-    onLocationChange(roadName); // Notify parent of the selected location
+    onLocationChange(roadName);
   };
   return (
     <DropdownMenu>

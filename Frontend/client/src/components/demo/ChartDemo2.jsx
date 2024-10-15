@@ -32,7 +32,7 @@ const chartConfig = {
 
 export function Chart2(props) {
   return (
-    <Card>
+    <Card className="bg-yellow-200">
       <CardHeader>
         <CardTitle>Area Chart - Stacked</CardTitle>
         <CardDescription>

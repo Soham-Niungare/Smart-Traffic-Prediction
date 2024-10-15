@@ -15,7 +15,7 @@ const chartData = [
 export function Graphs() {
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 mt-4 mx-4 lg:grid-cols-2 lg:gap-8">
+      <div className="grid grid-cols-1 gap-4 my-4 mx-4 lg:grid-cols-2 lg:gap-8">
         <Chart1 chartData={chartData} />
         <Chart2 chartData={chartData} />
         <Chart3 />
