@@ -19,15 +19,6 @@ import {
 
 export const description = "A simple area chart";
 
-const chartData = [
-  { month: "January", desktop: 224 },
-  { month: "February", desktop: 400 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 730 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 14 },
-];
-
 const chartConfig = {
   desktop: {
     label: "Desktop",
@@ -35,7 +26,7 @@ const chartConfig = {
   },
 };
 
-export function MyChart() {
+export function Chart1(props) {
   return (
     <Card>
       <CardHeader>
@@ -48,7 +39,7 @@ export function MyChart() {
         <ChartContainer config={chartConfig}>
           <AreaChart
             accessibilityLayer
-            data={chartData}
+            data={props.chartData}
             margin={{
               left: 12,
               right: 12,

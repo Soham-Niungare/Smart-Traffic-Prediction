@@ -19,15 +19,6 @@ import {
 
 export const description = "A stacked area chart";
 
-const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 730, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-];
-
 const chartConfig = {
   desktop: {
     label: "Desktop",
@@ -39,7 +30,7 @@ const chartConfig = {
   },
 };
 
-export function YourChart() {
+export function Chart2(props) {
   return (
     <Card>
       <CardHeader>
@@ -52,7 +43,7 @@ export function YourChart() {
         <ChartContainer config={chartConfig}>
           <AreaChart
             accessibilityLayer
-            data={chartData}
+            data={props.chartData}
             margin={{
               left: 12,
               right: 12,
