@@ -21,9 +21,9 @@ export function CalendarDemo({ onDateChange }) {
     <>
       <DatePicker
         selected={selectedDate}
-        label="Calendar"
-        className="border border-gray-800 rounded-2xl text-md pl-4 text-black outline-none py-1"
+        className="rounded-2xl text-md pl-4 text-black outline-none py-1 shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
         onChange={handleChange}
+        placeholderText="Calendar"
       />
     </>
   );

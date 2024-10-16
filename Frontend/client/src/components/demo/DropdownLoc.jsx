@@ -19,7 +19,7 @@ export function DropdownMenuLoc({ roadNames, onLocationChange }) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="rounded-tr-2xl rounded-br-2xl bg-white border border-gray-800 border-l-none text-black text-lg hover:shadow-[4px_4px_0px_0px_rgba(0,0,0)] transition duration-200"
+          className="rounded-tr-2xl rounded-br-2xl bg-white text-gray-800 hover:text-white hover:bg-gray-800 border border-gray-200 text-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]"
         >
           <IoIosArrowDropdown></IoIosArrowDropdown>
         </Button>
