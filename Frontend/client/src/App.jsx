@@ -5,7 +5,6 @@ import { SideBar } from "./components/demo/SideBar";
 import { HeroSection } from "./components/demo/HeroSection";
 import { Footer } from "./components/demo/Footer";
 import { InputDemo } from "./components/demo/InputDemo";
-// import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
   const [roadNames, setRoadNames] = useState([]);
@@ -18,21 +17,6 @@ function App() {
 
     fetchRoadNames();
   }, []);
-
-  // const router = createBrowserRouter([
-  //   {
-  //     path: "/",
-  //     element: <HeroSection></HeroSection>,
-  //   },
-  //   {
-  //     path: "/",
-  //     element: <InputDemo></InputDemo>,
-  //   },
-  //   {
-  //     path: "/",
-  //     element: <Footer></Footer>,
-  //   },
-  // ]);
 
   return (
     <>

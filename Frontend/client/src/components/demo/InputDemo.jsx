@@ -4,12 +4,14 @@ import { DropdownMenuWeather } from "./DropdownMenuWeather";
 import { CalendarDemo } from "./CalendarDemo";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import axios from "axios";
 
 export function InputDemo(props) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [selectedWeather, setSelectedWeather] = useState(null);
   const [showPrediction, setShowPrediction] = useState(false);
+  const [predictedTraffic, setPredictedTraffic] = useState(null);
 
   const handleLocationChange = (location) => {
     setSelectedLocation(location);
@@ -23,11 +25,27 @@ export function InputDemo(props) {
     setSelectedDate(formattedDate);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("Selected Location:", selectedLocation);
     console.log("Selected Date:", selectedDate);
     console.log("Selected Weather:", selectedWeather);
-    setShowPrediction(true);
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8080/api/predict_traffic",
+        {
+          road_name: selectedLocation,
+          future_date: selectedDate,
+          weather_condition: selectedWeather || "normal", // Default to "normal" if weather is not selected
+        }
+      );
+
+      // Handle the prediction result
+      const predictedTrafficVolume = response.data.predicted_traffic_volume;
+      setPredictedTraffic(predictedTrafficVolume);
+      setShowPrediction(true);
+    } catch (error) {
+      console.error("Error fetching prediction:", error);
+    }
   };
 
   const handleClear = () => {
@@ -35,6 +53,7 @@ export function InputDemo(props) {
     setSelectedDate(null);
     setSelectedWeather(null);
     setShowPrediction(false);
+    setPredictedTraffic(null);
   };
 
   return (
@@ -98,7 +117,7 @@ export function InputDemo(props) {
             id="Prediction"
             className="text-2xl font-semibold text-white text-center"
           >
-            Prediction: 72.5% Traffic
+            {predictedTraffic}
           </div>
         )}
       </div>
