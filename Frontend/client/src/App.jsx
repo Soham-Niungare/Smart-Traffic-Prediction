@@ -5,6 +5,7 @@ import { SideBar } from "./components/demo/SideBar";
 import { HeroSection } from "./components/demo/HeroSection";
 import { Footer } from "./components/demo/Footer";
 import { InputDemo } from "./components/demo/InputDemo";
+// import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
   const [roadNames, setRoadNames] = useState([]);
@@ -18,18 +19,35 @@ function App() {
     fetchRoadNames();
   }, []);
 
+  // const router = createBrowserRouter([
+  //   {
+  //     path: "/",
+  //     element: <HeroSection></HeroSection>,
+  //   },
+  //   {
+  //     path: "/",
+  //     element: <InputDemo></InputDemo>,
+  //   },
+  //   {
+  //     path: "/",
+  //     element: <Footer></Footer>,
+  //   },
+  // ]);
+
   return (
-    <div className="w-full  flex flex-col gap-4 bg-white">
-      <div className="grid grid-cols-1 gap-2 lg:grid-cols-[auto_1fr] lg:gap-4">
-        <SideBar></SideBar>
-        <div className="flex flex-col mr-4">
-          <Navbar></Navbar>
-          <HeroSection></HeroSection>
-          <InputDemo roadNames={roadNames}></InputDemo>
+    <>
+      <div className="w-full  flex flex-col gap-4 bg-white">
+        <div className="grid grid-cols-1 gap-2 lg:grid-cols-[auto_1fr] lg:gap-4">
+          <SideBar></SideBar>
+          <div className="flex flex-col mr-4">
+            <Navbar></Navbar>
+            <HeroSection></HeroSection>
+            <InputDemo roadNames={roadNames}></InputDemo>
+          </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-    </div>
+    </>
   );
 }
 
